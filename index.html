@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Love Game 💖</title>
     <style>
+        /* Romantic Gradient Background */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
@@ -20,6 +21,7 @@
             overflow: hidden;
         }
 
+        /* Floating Hearts Animation Background (Optional flair) */
         .bg-heart {
             position: absolute;
             color: rgba(255, 255, 255, 0.2);
@@ -29,14 +31,15 @@
         }
         .bg-heart:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
         .bg-heart:nth-child(2) { top: 70%; left: 80%; animation-delay: 2s; }
-        .bg-heart:nth-child(3) { top: 40%; left: 60%; animation-delay: 4s; font-size: 8rem; }
+        .bg-heart:nth-child(3) { top: 40%; left: 60%; animation-delay: 4s; font-size: 8rem;}
 
         @keyframes float {
-            0%   { transform: translateY(0px) rotate(0deg); }
-            50%  { transform: translateY(-20px) rotate(10deg); }
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
+        /* Glassmorphism Container */
         .container {
             background: rgba(255, 255, 255, 0.25);
             padding: 30px;
@@ -65,13 +68,14 @@
             text-shadow: 1px 1px 2px rgba(200, 0, 50, 0.2);
         }
 
+        /* Input Area */
         textarea {
             width: 100%;
             height: 130px;
             border-radius: 15px;
             border: 2px solid rgba(255, 255, 255, 0.5);
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             font-size: 16px;
             resize: none;
             box-sizing: border-box;
@@ -87,8 +91,8 @@
             background: #fff;
         }
 
-        /* Main draw button */
-        #drawBtn {
+        /* Fancy Heart Button */
+        button {
             background: linear-gradient(to right, #ff0844 0%, #ffb199 100%);
             color: white;
             border: none;
@@ -102,46 +106,28 @@
             box-shadow: 0 6px 20px rgba(255, 8, 68, 0.5);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 12px;
         }
 
-        #drawBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 8, 68, 0.6); }
-        #drawBtn:active { transform: scale(0.96); box-shadow: 0 2px 10px rgba(255, 8, 68, 0.4); }
-        #drawBtn:disabled { background: #d3a4b0; box-shadow: none; cursor: not-allowed; transform: none; }
-
-        /* Share link button */
-        #shareBtn {
-            background: rgba(255, 255, 255, 0.3);
-            color: #fff;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            padding: 10px 20px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(4px);
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 8, 68, 0.6);
         }
 
-        #shareBtn:hover { background: rgba(255, 255, 255, 0.45); transform: translateY(-1px); }
-        #shareBtn:active { transform: scale(0.97); }
-
-        /* Copied toast */
-        #toast {
-            display: none;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            color: #fff;
-            background: rgba(255, 8, 68, 0.6);
-            border-radius: 20px;
-            padding: 6px 16px;
-            backdrop-filter: blur(4px);
+        button:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 10px rgba(255, 8, 68, 0.4);
         }
 
+        button:disabled {
+            background: #d3a4b0;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Winner Display Area */
         #winner-display {
-            margin-top: 30px;
+            margin-top: 35px;
             font-size: 1.8rem;
             font-weight: 800;
             min-height: 100px;
@@ -156,13 +142,14 @@
             transition: all 0.3s ease;
         }
 
+        /* Animation for spinning names */
         .spinning {
             animation: pulse 0.1s infinite alternate;
             color: #ffe6eb !important;
         }
 
         @keyframes pulse {
-            0%   { transform: scale(1); }
+            0% { transform: scale(1); }
             100% { transform: scale(1.03); }
         }
 
@@ -176,8 +163,8 @@
         }
 
         @keyframes heartbeat {
-            0%   { transform: scale(0.5); opacity: 0; }
-            50%  { transform: scale(1.1); }
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); opacity: 1; }
         }
 
@@ -189,12 +176,13 @@
 
         @keyframes beat {
             0%, 100% { transform: scale(1); }
-            50%       { transform: scale(1.3); }
+            50% { transform: scale(1.3); }
         }
     </style>
 </head>
 <body>
 
+    <!-- Background decorative hearts -->
     <div class="bg-heart">❤️</div>
     <div class="bg-heart">💕</div>
     <div class="bg-heart">💖</div>
@@ -210,94 +198,65 @@ Ada</textarea>
 
         <button id="drawBtn" onclick="startLoveMatch()">Find True Love!</button>
 
-        <button id="shareBtn" onclick="copyShareLink()">🔗 Copy Shareable Link</button>
-        <div id="toast">✅ Link copied! Share it with your friends 💌</div>
-
         <div id="winner-display">Who will it be?</div>
     </div>
 
     <script>
-        // On page load: read names from URL hash if present
-        (function loadFromURL() {
-            try {
-                const hash = window.location.hash.slice(1); // strip the #
-                if (!hash) return;
-                const decoded = decodeURIComponent(hash);
-                const names = JSON.parse(decoded);
-                if (Array.isArray(names) && names.length > 0) {
-                    document.getElementById('namesList').value = names.join('\n');
-                }
-            } catch (e) {
-                // Malformed hash — just ignore and use defaults
-            }
-        })();
-
-        function getNames() {
-            return document.getElementById('namesList').value
-                .split('\n')
-                .map(n => n.trim())
-                .filter(n => n.length > 0);
-        }
-
-        function copyShareLink() {
-            const names = getNames();
-            if (names.length < 2) {
-                alert("Add at least 2 names before sharing!");
-                return;
-            }
-            const hash = encodeURIComponent(JSON.stringify(names));
-            const url = window.location.origin + window.location.pathname + '#' + hash;
-            navigator.clipboard.writeText(url).then(() => {
-                const toast = document.getElementById('toast');
-                toast.style.display = 'block';
-                setTimeout(() => { toast.style.display = 'none'; }, 3000);
-            }).catch(() => {
-                // Fallback for browsers that block clipboard API
-                prompt("Copy this link:", url);
-            });
-        }
-
         function startLoveMatch() {
             const textArea = document.getElementById('namesList');
             const button = document.getElementById('drawBtn');
             const display = document.getElementById('winner-display');
 
-            const names = getNames();
+            // Clean up the input data
+            const rawNames = textArea.value.split('\n');
+            const names = rawNames.map(n => n.trim()).filter(n => n.length > 0);
 
             if (names.length < 2) {
                 alert("You need at least TWO people to play the Love Game!");
                 return;
             }
 
+            // Disable UI during the spin
             button.disabled = true;
             textArea.disabled = true;
 
+            // Setup the "Slot Machine" effect variables
             display.classList.remove('final-winner');
             display.classList.add('spinning');
 
             let spins = 0;
-            const maxSpins = 40;
-            const spinSpeedMs = 60;
+            const maxSpins = 40; // How many names flash before stopping
+            const spinSpeedMs = 60; 
 
+            // The spinning interval
             const interval = setInterval(() => {
+                // Pick two random names for the visual effect (might be the same during spin, that's okay for the blur effect)
                 const p1 = names[Math.floor(Math.random() * names.length)];
                 const p2 = names[Math.floor(Math.random() * names.length)];
+
                 display.innerHTML = `${p1} <br><span style="font-size: 1.2rem;">loves</span><br> ${p2}`;
                 spins++;
 
+                // When we reach max spins, stop and pick the real lovers
                 if (spins >= maxSpins) {
                     clearInterval(interval);
 
+                    // Final Math.random() draw ensuring they are DIFFERENT people
                     let finalP1 = names[Math.floor(Math.random() * names.length)];
                     let finalP2 = names[Math.floor(Math.random() * names.length)];
-                    while (finalP1 === finalP2) {
+
+                    // Keep picking P2 until it's different from P1
+                    while(finalP1 === finalP2) {
                         finalP2 = names[Math.floor(Math.random() * names.length)];
                     }
 
                     display.classList.remove('spinning');
                     display.classList.add('final-winner');
+
+                    // Display the final result with a beating heart!
                     display.innerHTML = `${finalP1} <br><span class="heart-icon">❤️</span><br> ${finalP2}`;
 
+                    // Re-enable UI
                     button.disabled = false;
                     textArea.disabled = false;
                 }
